@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f4ee">
+  <title>La gran espera · Quiniela del bebé</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="La gran espera, inicio"><span class="brand-mark">✳</span> la gran espera<span class="brand-dot">.</span></a>
+      <span class="edition"><span class="live-dot"></span> EDICIÓN NOVIEMBRE 2026</span>
+      <button class="button button-small" id="open-guide" aria-haspopup="dialog">Cómo se juega <span aria-hidden="true">↗</span></button>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <div class="eyebrow">UN BEBÉ EN CAMINO. SEIS GRANDES INTUICIONES.</div>
+          <h1 id="page-title">Lo mejor está<br>por <span class="handwritten">llegar.</span><span class="sparkle" aria-hidden="true">✧</span></h1>
+          <p class="intro-copy">Ya hicimos nuestras apuestas. Ahora solo falta que<br class="desktop-break"> la personita más esperada elija su momento.</p>
+          <div class="intro-tags"><span>♡ Hecho para compartir la emoción</span><span>6 participantes</span></div>
+        </div>
+        <aside class="arrival-card" aria-label="Cuenta regresiva a la próxima apuesta">
+          <div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="arrival-top"><span class="pill">LA PRÓXIMA APUESTA</span><span aria-hidden="true">✦</span></div>
+          <h2 id="next-name">Pao tiene una corazonada</h2>
+          <p id="next-date">16 de noviembre · 11:00 a. m.</p>
+          <div class="countdown" id="countdown"></div>
+          <div class="arrival-foot"><span aria-hidden="true">◷</span> <span id="countdown-caption">Cuenta regresiva a una apuesta, no a la fecha de parto.</span></div>
+        </aside>
+      </section>
+
+      <section class="summary-strip" aria-label="Resumen de las apuestas">
+        <div><span class="summary-icon lavender" aria-hidden="true">♧</span><div><span class="mini-label">LA PRIMERA CORAZONADA</span><strong>16 nov <span>· Pao</span></strong></div></div>
+        <div><span class="summary-icon mint" aria-hidden="true">↔</span><div><span class="mini-label">ENTRE LA PRIMERA Y LA ÚLTIMA</span><strong>10 días, 11 horas</strong></div></div>
+        <div><span class="summary-icon peach" aria-hidden="true">✦</span><div><span class="mini-label">EL DÍA MÁS DISPUTADO</span><strong>23 nov <span>· Fer y Dany</span></strong></div></div>
+      </section>
+
+      <section class="timeline-panel panel" aria-labelledby="timeline-title">
+        <div class="section-heading"><div><div class="eyebrow">EL MAPA DE LAS CORAZONADAS</div><h2 id="timeline-title">Cada momento tiene su favorito.</h2></div><span class="muted heading-note">Gana quien quede más cerca, antes o después.</span></div>
+        <div class="timeline-scroll">
+          <div class="timeline-inner">
+            <div class="prediction-markers" id="prediction-markers"></div>
+            <div class="timeline-track" id="timeline-track" role="group" aria-label="Intervalos ganadores. Pulsa un color para probar una fecha."></div>
+            <div class="timeline-cursor" id="timeline-cursor" aria-hidden="true"><span>Tu fecha</span><i></i></div>
+            <div class="timeline-axis" id="timeline-axis"></div>
+          </div>
+        </div>
+        <div class="timeline-footer"><span><span class="tiny-line"></span> Marca = apuesta individual</span><span>Los colores son intervalos de cercanía, no probabilidades.</span><span>← Antes: Pao · Después: Marité →</span></div>
+      </section>
+
+      <div class="play-grid">
+        <section class="simulator panel" aria-labelledby="simulator-title">
+          <div class="eyebrow"><span class="live-dot"></span> MODO EXPLORAR</div>
+          <h2 id="simulator-title">¿Y si llega…?</h2>
+          <p class="muted">Elige un momento y descubre quién se lleva la gloria.</p>
+          <label class="field-label" for="sim-date">FECHA Y HORA DEL NACIMIENTO HIPOTÉTICO</label>
+          <input id="sim-date" type="datetime-local" step="1" value="2026-11-23T12:00:00" aria-describedby="time-note">
+          <p class="input-error" id="sim-error" role="alert" hidden></p>
+          <div class="slider-labels"><span>14 nov</span><span>Desliza para explorar <span aria-hidden="true">↔</span></span><span>29 nov</span></div>
+          <input class="date-slider" id="date-slider" type="range" min="0" max="21600" step="1" value="13680" aria-label="Explorar fecha entre el 14 y el 29 de noviembre">
+          <div class="winner-box" id="winner-box" aria-live="polite" aria-atomic="true"></div>
+          <div class="ranking" id="ranking" aria-label="Clasificación por cercanía"></div>
+          <p class="fine-print" id="time-note">Todas las horas son del mismo reloj local acordado por la familia, sin conversiones de zona horaria. Puedes escribir fechas fuera de la barra.</p>
+        </section>
+
+        <section class="participants panel" aria-labelledby="participants-title">
+          <div class="section-heading compact"><div><div class="eyebrow">EL EQUIPO DE LAS INTUICIONES</div><h2 id="participants-title">Las seis apuestas</h2></div><span class="number-badge">06</span></div>
+          <p class="muted participants-hint">Toca una apuesta para probar ese momento en el simulador.</p>
+          <div id="participant-list"></div>
+          <p class="fine-print">Las fronteras son los puntos medios exactos entre apuestas. Si el nacimiento coincide con una frontera, hay empate.</p>
+        </section>
+      </div>
+
+      <section class="reveal-panel" aria-labelledby="reveal-title">
+        <div class="reveal-illustration" aria-hidden="true">☾<span>✧</span></div>
+        <div class="reveal-copy"><div class="eyebrow">EL GRAN MOMENTO</div><h2 id="reveal-title">Cuando llegue, aquí se celebra.</h2><p>Registra el nacimiento y descubre el resultado de la quiniela.</p></div>
+        <button class="button button-dark" id="open-birth">¡Ya llegó el bebé! <span aria-hidden="true">↗</span></button>
+        <div class="saved-result" id="saved-result" hidden aria-live="polite"></div>
+      </section>
+      <p id="storage-status" class="storage-status" role="status"></p>
+    </main>
+
+    <footer><span class="brand footer-brand">la gran espera.</span><span>Una pequeña quiniela para una llegada enorme.</span><span>NOV · 2026 <span aria-hidden="true">♡</span></span></footer>
+  </div>
+
+  <dialog id="guide-dialog" aria-labelledby="guide-title">
+    <div class="dialog-heading"><span class="eyebrow">LAS REGLAS</span><button class="icon-button" data-close="guide-dialog" aria-label="Cerrar reglas">×</button></div>
+    <h2 id="guide-title">Aquí gana la mejor intuición.</h2>
+    <ol class="rules"><li>Cada persona tiene una fecha y una hora de apuesta.</li><li>Gana la apuesta con menor distancia absoluta al nacimiento. No importa si fue antes o después.</li><li>A mitad exacta entre dos apuestas, ambas ganan. Las fronteras pueden incluir segundos.</li><li>Pao gana también antes del inicio de la barra; Marité, después del final.</li></ol>
+    <p class="fine-print">Es una demostración recreativa. No predice la fecha de parto ni representa probabilidades médicas. El resultado se guarda solo en este navegador; no se sincroniza con otras personas.</p>
+    <button class="button button-dark full-width" data-close="guide-dialog">¡A jugar!</button>
+  </dialog>
+
+  <dialog id="birth-dialog" aria-labelledby="birth-title">
+    <div class="dialog-heading"><span class="eyebrow">HOLA, PERSONITA NUEVA ♡</span><button class="icon-button" data-close="birth-dialog" aria-label="Cerrar registro">×</button></div>
+    <h2 id="birth-title">Su momento ya tiene fecha.</h2>
+    <p class="muted">Introduce la hora real del nacimiento para registrar el resultado en este dispositivo.</p>
+    <form id="birth-form">
+      <label class="field-label" for="birth-date">FECHA Y HORA REAL</label>
+      <input id="birth-date" type="datetime-local" step="1" required>
+      <p class="input-error" id="birth-error" role="alert" hidden></p>
+      <button class="button button-dark full-width" type="submit">Celebrar y guardar resultado ✦</button>
+    </form>
+    <button class="text-button" id="clear-birth" hidden>Borrar el resultado guardado</button>
+    <p class="fine-print">Mismo reloj local que las apuestas. No se envían datos a ningún servidor.</p>
+  </dialog>
+  <div id="celebration" class="celebration" aria-hidden="true"></div>
+</body>
+</html>

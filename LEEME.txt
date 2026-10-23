@@ -1,0 +1,34 @@
+LA GRAN ESPERA - QUINIELA DEL BEBE
+
+Abrir:
+Haz doble clic en index.html. Mantén styles.css y app.js en la misma carpeta.
+No requiere instalación, conexión a internet ni cuentas.
+
+También puedes abrirlo con un servidor local:
+py -m http.server 8767 --bind 127.0.0.1 --directory "C:\Users\maria.manjarrez\Downloads\La-gran-espera"
+Después visita http://127.0.0.1:8767
+
+Funciones:
+- Seis apuestas de noviembre de 2026, transcritas de la imagen.
+- Cuenta regresiva a la próxima apuesta, no a la fecha prevista del parto.
+- Línea de tiempo con intervalos ganadores.
+- Simulador de fecha y hora, clasificación y empates exactos.
+- Registro y eliminación del nacimiento real en el navegador.
+- Diseño adaptable para computadora y teléfono.
+
+Reglas:
+Gana la apuesta más cercana en tiempo absoluto, antes o después del nacimiento.
+Los puntos medios exactos producen un empate.
+Las fronteras incluyen segundos: 24 nov 13:23:30 y 26 nov 02:37:30.
+Pao gana antes del rango visual y Marité después del rango visual.
+Las horas se interpretan en un mismo reloj local acordado por la familia.
+
+Privacidad:
+No hay servicios externos, analítica ni solicitudes a terceros.
+El nacimiento se guarda únicamente en localStorage del navegador.
+El guardado depende de los permisos y del modo de navegación.
+No se sincroniza entre dispositivos, navegadores ni direcciones web.
+Para compartir el dashboard, comparte todos los archivos o el ZIP.
+La dirección 127.0.0.1 solo funciona en la computadora donde está el servidor.
+
+Es una actividad recreativa: no es una predicción médica ni asigna probabilidades.
