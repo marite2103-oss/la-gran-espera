@@ -141,8 +141,8 @@ const BabyPool = (() => {
       if (bet.time < start || bet.time > end) return "";
       return `<button class="prediction-marker"
         style="left:${100 * (bet.time - start) / (end - start)}%;--marker-top:${8 + index % 4 * 22}px"
-        data-bet="${index}" title="${index + 1}. ${bet.name}: ${display(bet.time)}"
-        aria-label="Probar apuesta de ${bet.name}">${index + 1}</button>`;
+        data-bet="${index}" title="${bet.name}: ${display(bet.time)}"
+        aria-label="Probar apuesta de ${bet.name}">${bet.name}</button>`;
     }).join("");
 
     $("timeline-track").innerHTML = bets.map((bet, index) => {
@@ -151,7 +151,7 @@ const BabyPool = (() => {
       if (right <= left) return "";
       return `<button class="time-segment" style="width:${100 * (right - left) / (end - start)}%;background:${bet.color}"
         data-segment="${index}" aria-label="Explorar intervalo ganador de ${bet.name}"
-        title="${bet.name}: ${windowLabel(index)}">${(right - left) / (end - start) > .02 ? index + 1 : ""}</button>`;
+        title="${bet.name}: ${windowLabel(index)}">${(right - left) / (end - start) > .03 ? bet.name : ""}</button>`;
     }).join("");
     $("timeline-axis").innerHTML = [5, 28].map((day) => `<span>${day} nov</span>`).join("");
     $("participant-count").textContent = `${bets.length} apuestas`;
