@@ -6,12 +6,36 @@ const BabyPool = (() => {
   const DAY = 24 * HOUR;
   const STORAGE_KEY = "la-gran-espera.birth.v1";
   const bets = [
-    { name: "Pao", date: "2026-11-16T11:00:00", color: "#ccc2e9" },
+    { name: "Alex", date: "2026-10-09T07:45:00", color: "#acd5ef" },
+    { name: "Jhas", date: "2026-11-06T06:15:00", color: "#a8deca" },
+    { name: "Laura y Genaro", date: "2026-11-07T12:50:00", color: "#b3dfdb" },
+    { name: "Rossana", date: "2026-11-09T10:30:00", color: "#bde7ce" },
+    { name: "Marissa", date: "2026-11-10T06:00:00", color: "#91c9e6" },
+    { name: "Brenda Sago", date: "2026-11-11T08:00:00", color: "#c3e3ed" },
+    { name: "Raquel", date: "2026-11-12T09:00:00", color: "#acd5ef", note: 'Apostó "12 nov am"; se tomó 9:00 a. m.' },
+    { name: "Tío Rodney", date: "2026-11-13T10:36:00", color: "#a8deca", note: "Se tomó 10:36 a. m." },
+    { name: "Abu Lulu", date: "2026-11-14T08:00:00", color: "#b3dfdb" },
+    { name: "Tía Amparo", date: "2026-11-15T06:00:00", color: "#bde7ce" },
+    { name: "Luiggi y Feri", date: "2026-11-16T08:30:00", color: "#91c9e6" },
+    { name: "Tía Pao", date: "2026-11-16T11:30:00", color: "#c3e3ed" },
+    { name: "Tía Bibi", date: "2026-11-16T12:00:00", color: "#acd5ef", note: 'Apostó "16 nov" sin hora; se tomó 12:00 p. m.' },
+    { name: "Abuelo Armando", date: "2026-11-16T18:00:00", color: "#a8deca" },
+    { name: "Mike", date: "2026-11-16T20:00:00", color: "#b3dfdb" },
+    { name: "Manolo y Mich", date: "2026-11-17T04:44:00", color: "#bde7ce" },
+    { name: "Lalo Sago", date: "2026-11-18T08:45:00", color: "#91c9e6" },
+    { name: "Beto y Lore", date: "2026-11-19T07:00:00", color: "#c3e3ed" },
     { name: "Tavo", date: "2026-11-20T03:00:00", color: "#a8deca" },
-    { name: "Fer", date: "2026-11-23T12:00:00", color: "#f1c4b1" },
-    { name: "Dany", date: "2026-11-23T19:32:00", color: "#efbfd7" },
-    { name: "Daniel", date: "2026-11-25T07:15:00", color: "#afcfe9" },
-    { name: "Marité", date: "2026-11-26T22:00:00", color: "#f2c677" },
+    { name: "Alfred", date: "2026-11-20T20:00:00", color: "#b3dfdb" },
+    { name: "Marcela", date: "2026-11-21T16:45:00", color: "#bde7ce" },
+    { name: "Abuela Marlu", date: "2026-11-22T11:00:00", color: "#91c9e6" },
+    { name: "Fer", date: "2026-11-23T12:00:00", color: "#b3dfdb" },
+    { name: "Dany", date: "2026-11-23T19:32:00", color: "#bde7ce" },
+    { name: "Daniel", date: "2026-11-25T07:15:00", color: "#91c9e6" },
+    { name: "Tere Rojo", date: "2026-11-25T07:30:00", color: "#c3e3ed" },
+    { name: "Abu MACS", date: "2026-11-25T08:00:00", color: "#acd5ef" },
+    { name: "Marité", date: "2026-11-26T06:30:00", color: "#a8deca" },
+    { name: "Rodolfo Chacón", date: "2026-11-26T07:00:00", color: "#b3dfdb" },
+    { name: "Javi", date: "2026-11-27T07:12:00", color: "#bde7ce" },
   ];
 
   // UTC is only an arithmetic container for a shared wall clock, not a timezone conversion.
@@ -49,8 +73,8 @@ const BabyPool = (() => {
 
   bets.forEach((bet) => { bet.time = parseLocal(bet.date); });
   const boundaries = bets.slice(1).map((bet, index) => (bet.time + bets[index].time) / 2);
-  const start = parseLocal("2026-11-14T00:00:00");
-  const end = parseLocal("2026-11-29T00:00:00");
+  const start = parseLocal("2026-11-05T00:00:00");
+  const end = parseLocal("2026-11-28T00:00:00");
 
   function rank(stamp) {
     if (!Number.isFinite(stamp)) throw new RangeError("La fecha no es válida.");
@@ -106,25 +130,34 @@ const BabyPool = (() => {
 
     $("participant-list").innerHTML = bets.map((bet, index) => `
       <button class="participant" data-bet="${index}" aria-label="Probar apuesta de ${bet.name}: ${display(bet.time)}">
-        <span class="avatar" style="background:${bet.color}">${bet.name.charAt(0)}</span>
+        <span class="avatar" style="background:${bet.color}">${index + 1}</span>
         <span><span class="person-name">${bet.name}</span><span class="person-date">${display(bet.time)}</span>
-        <span class="person-window">Gana: ${windowLabel(index)}</span></span>
+        <span class="person-window">Gana: ${windowLabel(index)}</span>
+        ${bet.note ? `<span class="person-window">Nota: ${bet.note}</span>` : ""}</span>
         <span class="person-arrow" aria-hidden="true">↗</span>
       </button>`).join("");
 
-    $("prediction-markers").innerHTML = bets.map((bet, index) => `
-      <button class="prediction-marker ${index === 3 ? "stagger" : ""}"
-        style="left:${100 * (bet.time - start) / (end - start)}%"
-        data-bet="${index}" aria-label="Probar apuesta de ${bet.name}">${bet.name}</button>`).join("");
+    $("prediction-markers").innerHTML = bets.map((bet, index) => {
+      if (bet.time < start || bet.time > end) return "";
+      return `<button class="prediction-marker"
+        style="left:${100 * (bet.time - start) / (end - start)}%;--marker-top:${8 + index % 4 * 22}px"
+        data-bet="${index}" title="${index + 1}. ${bet.name}: ${display(bet.time)}"
+        aria-label="Probar apuesta de ${bet.name}">${index + 1}</button>`;
+    }).join("");
 
     $("timeline-track").innerHTML = bets.map((bet, index) => {
-      const left = index === 0 ? start : boundaries[index - 1];
-      const right = index === bets.length - 1 ? end : boundaries[index];
+      const left = Math.max(start, index === 0 ? start : boundaries[index - 1]);
+      const right = Math.min(end, index === bets.length - 1 ? end : boundaries[index]);
+      if (right <= left) return "";
       return `<button class="time-segment" style="width:${100 * (right - left) / (end - start)}%;background:${bet.color}"
         data-segment="${index}" aria-label="Explorar intervalo ganador de ${bet.name}"
-        title="${bet.name}: ${windowLabel(index)}">${index === 3 ? "" : bet.name}</button>`;
+        title="${bet.name}: ${windowLabel(index)}">${(right - left) / (end - start) > .02 ? index + 1 : ""}</button>`;
     }).join("");
-    $("timeline-axis").innerHTML = [14, 17, 20, 23, 26, 29].map((day) => `<span>${day} nov</span>`).join("");
+    $("timeline-axis").innerHTML = [5, 28].map((day) => `<span>${day} nov</span>`).join("");
+    $("participant-count").textContent = `${bets.length} apuestas`;
+    $("bets-count").textContent = String(bets.length).padStart(2, "0");
+    $("first-bet").textContent = `${display(bets[0].time)} · ${bets[0].name}`;
+    $("bet-span").textContent = duration(bets.at(-1).time - bets[0].time);
 
     function updateSimulation(stamp) {
       simulation = stamp;
@@ -134,10 +167,10 @@ const BabyPool = (() => {
       $("winner-box").style.background = `${winning[0].color}55`;
       $("winner-box").style.borderColor = `${winning[0].color}`;
       $("winner-box").innerHTML = `
-        <span class="winner-symbol" aria-hidden="true">${tied ? "↔" : "✦"}</span>
+        <span class="winner-symbol" aria-hidden="true">${tied ? "↔" : '<span class="padel-racket"></span>'}</span>
         <div><span class="mini-label">${tied ? "¡EMPATE EXACTO!" : "SI LLEGA EN ESE MOMENTO, GANA"}</span>
         <strong>${winning.map((bet) => bet.name).join(" y ")}</strong>
-        <small>${sorted[0].distance === 0 ? "Su apuesta coincide al segundo." : `A ${duration(sorted[0].distance)} de su apuesta${tied ? " · comparten la victoria" : ""}.`}</small></div>`;
+        <small>${sorted[0].distance === 0 ? "Su apuesta coincide al segundo." : `A ${duration(sorted[0].distance)} de su apuesta${tied ? " · decide el grupo" : ""}.`}</small></div>`;
       $("ranking").innerHTML = sorted.map((bet, index) => `
         <div class="rank-row"><span class="rank-number">${index > 0 && bet.distance === sorted[index - 1].distance ? "=" : String(index + 1).padStart(2, "0")}</span>
         <span class="rank-name"><i class="color-dot" style="background:${bet.color}"></i>${bet.name}</span>
@@ -145,7 +178,7 @@ const BabyPool = (() => {
       $("date-slider").value = String(Math.max(0, Math.min((end - start) / MINUTE, (stamp - start) / MINUTE)));
       const position = Math.max(0, Math.min(100, 100 * (stamp - start) / (end - start)));
       $("timeline-cursor").style.left = `${position}%`;
-      $("timeline-cursor").querySelector("span").textContent = stamp < start ? "Antes del 14" : stamp > end ? "Después del 29" : "Tu fecha";
+      $("timeline-cursor").querySelector("span").textContent = stamp < start ? "Antes del 5" : stamp > end ? "Después del 28" : "Tu fecha";
       $("date-slider").setAttribute("aria-valuetext", `${display(stamp, true)}. ${tied ? "Empatan" : "Gana"} ${winning.map((bet) => bet.name).join(" y ")}.`);
     }
 
@@ -171,8 +204,8 @@ const BabyPool = (() => {
     document.querySelectorAll("[data-segment]").forEach((button) => {
       button.addEventListener("click", () => {
         const index = Number(button.dataset.segment);
-        const left = index === 0 ? start : boundaries[index - 1];
-        const right = index === bets.length - 1 ? end : boundaries[index];
+        const left = Math.max(start, index === 0 ? start : boundaries[index - 1]);
+        const right = Math.min(end, index === bets.length - 1 ? end : boundaries[index]);
         setSimulation(Math.floor((left + right) / 2000) * 1000);
       });
     });
@@ -180,10 +213,10 @@ const BabyPool = (() => {
     function renderSaved() {
       $("saved-result").hidden = savedBirth === null;
       $("clear-birth").hidden = savedBirth === null;
-      $("open-birth").textContent = savedBirth === null ? "¡Ya llegó el bebé! ↗" : "Ver / editar nacimiento ↗";
+      $("open-birth").textContent = savedBirth === null ? "¡Ya llegó Matías! ↗" : "Ver / editar nacimiento ↗";
       if (savedBirth !== null) {
         const winning = winners(savedBirth);
-        $("saved-result").textContent = `♡ Nacimiento registrado: ${display(savedBirth, true)} de ${new Date(savedBirth).getUTCFullYear()}. ${winning.length > 1 ? "¡Empatan" : "¡Gana"} ${winning.map((bet) => bet.name).join(" y ")}! Distancia: ${duration(winning[0].distance)}. Guardado solo en este navegador.`;
+        $("saved-result").textContent = `♡ Nacimiento de Matías registrado: ${display(savedBirth, true)} de ${new Date(savedBirth).getUTCFullYear()}. ${winning.length > 1 ? "¡Empatan" : "¡Gana"} ${winning.map((bet) => bet.name).join(" y ")}! Distancia: ${duration(winning[0].distance)}.${winning.length > 1 ? " El grupo decide el desempate." : ""} Guardado solo en este navegador.`;
       }
     }
 
@@ -194,7 +227,7 @@ const BabyPool = (() => {
         $("next-name").textContent = savedBirth !== null ? "La espera ya tiene su final." : "Todas las apuestas ya pasaron.";
         $("next-date").textContent = savedBirth !== null ? `Bienvenida a una nueva historia · ${display(savedBirth)}` : "El simulador sigue abierto para cualquier fecha.";
         $("countdown").innerHTML = '<span class="countdown-unit"><strong>♡</strong><span>CADA LLEGADA TIENE SU MOMENTO</span></span>';
-        $("countdown-caption").textContent = savedBirth !== null ? "Resultado registrado en este dispositivo." : "Que pase una apuesta no determina cuándo nacerá el bebé.";
+        $("countdown-caption").textContent = savedBirth !== null ? "Resultado registrado en este dispositivo." : "Que pase una apuesta no determina cuándo nacerá Matías.";
         return;
       }
       $("next-name").textContent = `${next.name} tiene una corazonada.`;

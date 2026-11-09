@@ -48,15 +48,15 @@ def prepare_component(html: str):
 
 def main() -> None:
     st.set_page_config(
-        page_title="La gran espera · Quiniela del bebé",
-        page_icon="✨",
+        page_title="La gran espera · Quiniela de Matías",
+        page_icon="🎾",
         layout="wide",
         initial_sidebar_state="collapsed",
     )
     st.markdown(
         """
         <style>
-          .stApp { background: #f6f4ee; }
+          .stApp { background: #f0f8fc; }
           [data-testid="stMainBlockContainer"] {
             max-width: none; padding: 0 0 1rem;
           }
